@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travaux pratiques Big Data — ISI DITI 4</title>
+  <meta name="description" content="Portail des travaux pratiques du module Big Data &amp; Analyse de données — ISI, DITI 4 (Diplôme d'Ingénieur en Techniques Informatiques), année 2026-2027.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/tp.css">
+  <style>
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+    .section-title { font-family: var(--serif); font-weight: 600; color: var(--navy); font-size: 28px; margin: 44px 0 6px; }
+    .section-sub { color: var(--muted); margin: 0 0 20px; }
+    .tp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+    .tp-card { display: flex; flex-direction: column; padding: 22px; position: relative; overflow: hidden; }
+    .tp-num {
+      width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: var(--navy); color: #fff; font-family: var(--serif); font-size: 20px; margin-bottom: 14px;
+    }
+    .tp-card h3 { font-family: var(--serif); font-weight: 600; color: var(--navy); font-size: 20px; line-height: 1.3; margin: 0 0 8px; }
+    .tp-card p { margin: 0 0 12px; font-size: 15px; }
+    .tp-q { background: var(--orange-tint); border-radius: 8px; padding: 10px 12px; font-size: 14.5px; color: #5a2a08; margin-bottom: 12px; }
+    .tp-q b { color: var(--orange); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px; }
+    .tp-card ul { margin: 0 0 14px; padding-left: 20px; font-size: 14.5px; }
+    .tp-card li { margin-bottom: 4px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 16px; }
+    .tag { font-size: 12.5px; font-weight: 600; color: var(--navy); background: var(--navy-tint); border-radius: 999px; padding: 3px 10px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+      background: var(--navy); color: #fff; font-weight: 600; padding: 10px 16px; border-radius: 9px;
+    }
+    .btn:hover { background: var(--orange); color: #fff; }
+    .two-col { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; }
+    .two-col .card { padding: 22px 24px; }
+    .two-col h3 { margin: 0 0 10px; color: var(--navy); font-size: 18px; }
+    .two-col ul { margin: 0; padding-left: 20px; }
+    .two-col li { margin-bottom: 6px; }
+    .map td:first-child { white-space: nowrap; font-weight: 600; color: var(--navy); }
+    .fil { margin-top: 18px; }
+    @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><img src="logo.jpg" alt="Logo ISI"><span>Big Data — TP<small>ISI · DITI 4 · 2026-2027</small></span></a>
+    <nav class="nav" aria-label="Navigation des TP">
+      <a href="index.html">Accueil</a>
+      <a href="tp1.html">TP1</a>
+      <a href="tp2.html">TP2</a>
+      <a href="tp3.html">TP3</a>
+      <a href="tp4.html">TP4</a>
+      <a href="tp5.html">TP5</a>
+      <a href="tp6.html">TP6</a>
+      <a href="tp7.html">TP7</a>
+      <a href="tp8.html">TP8</a>
+    </nav>
+  </div>
+</header>
+
+<header class="doc-hero">
+  <div class="doc-hero-inner">
+    <div class="logo-tile"><img src="logo.jpg" alt="Logo ISI"></div>
+    <div>
+      <p class="eyebrow">Module Big Data &amp; Analyse de données</p>
+      <h1>Travaux pratiques Hadoop, Hive et Spark</h1>
+      <p class="lead">Huit TP progressifs : installer Hadoop sur un poste, monter un cluster, le transposer dans le cloud, interroger les données en SQL, calculer en mémoire avec Spark sur une machine puis sur le cluster, passer aux DataFrames, et finir sur une plateforme managée (Databricks). Fil rouge : les ventes d'une enseigne, analysées par ville, catégorie et moyen de paiement.</p>
+      <div class="chips">
+        <span class="chip"><b>DITI 4</b></span>
+        <span class="chip">Diplôme d'Ingénieur en Techniques Informatiques</span>
+        <span class="chip">Année 2026-2027</span>
+        <span class="chip">Hadoop 3.5.0</span>
+        <span class="chip">Java 21 · Python 3</span>
+        <span class="chip">Hive 4.2.0</span>
+        <span class="chip">Spark 4.2.0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2 class="section-title">Le parcours</h2>
+  <p class="section-sub">Chaque TP s'appuie sur le précédent. Faites-les dans l'ordre.</p>
+
+  <div class="tp-grid">
+    <article class="card tp-card">
+      <div class="tp-num">1</div>
+      <h3>Installer Hadoop en mode pseudo-distribué</h3>
+      <p>Tous les démons Hadoop sur une seule machine : le laboratoire de base du module.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Comment installer et valider une plateforme Hadoop sur un poste, et que contient chaque démon ?</div>
+      <ul>
+        <li>Java 21, SSH, utilisateur <code>hadoop</code></li>
+        <li>Configuration de HDFS, YARN et MapReduce</li>
+        <li>Validation par un job d'exemple</li>
+      </ul>
+      <div class="tags"><span class="tag">Hadoop 3.5.0</span><span class="tag">Ubuntu 26.04</span><span class="tag">Pseudo-distribué</span></div>
+      <a class="btn" href="tp1.html">Ouvrir le TP1 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">2</div>
+      <h3>Déployer un cluster de 4 nœuds sur VirtualBox</h3>
+      <p>Un master et trois workers, la réplication ×3, et un premier job MapReduce, puis des variantes d'ingénieur (combiner, Partitioner, jointure).</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Comment fonctionnent HDFS, YARN et MapReduce sur un vrai cluster, et que se passe-t-il quand un nœud tombe ?</div>
+      <ul>
+        <li>Réseau host-only, hostnames, SSH</li>
+        <li>HDFS et YARN sur plusieurs nœuds</li>
+        <li><code>TotalSalesByCity</code> en Java et en Python</li>
+      </ul>
+      <div class="tags"><span class="tag">Cluster 4 nœuds</span><span class="tag">VirtualBox</span><span class="tag">MapReduce</span></div>
+      <a class="btn" href="tp2.html">Ouvrir le TP2 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">3</div>
+      <h3>Transposer le cluster dans le cloud AWS</h3>
+      <p>Le même cluster et le même job, sur quatre instances EC2.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Qu'est-ce qui change quand le même cluster tourne dans le cloud : mise en place, réseau, sécurité ?</div>
+      <ul>
+        <li>Instances EC2 et Security Group</li>
+        <li>Réseau privé, hosts et SSH</li>
+        <li>Job « CA par ville » en Java et en Python</li>
+      </ul>
+      <div class="tags"><span class="tag">AWS EC2</span><span class="tag">Cloud</span><span class="tag">Cloud</span></div>
+      <a class="btn" href="tp3.html">Ouvrir le TP3 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">4</div>
+      <h3>Analyser les ventes en SQL avec Hive et Hue</h3>
+      <p>Une stack Docker Hadoop + Hive + Hue, et les indicateurs du TP2 en HiveQL.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Comment HiveQL est-il compilé et exécuté, et comment les tables s'appuient-elles sur HDFS ?</div>
+      <ul>
+        <li>Image Hive avec metastore PostgreSQL</li>
+        <li>Table externe sur HDFS</li>
+        <li>Requêtes d'agrégation et lecture du plan d'exécution</li>
+      </ul>
+      <div class="tags"><span class="tag">Hive 4.2.0</span><span class="tag">Hue</span><span class="tag">Docker</span></div>
+      <a class="btn" href="tp4.html">Ouvrir le TP4 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">5</div>
+      <h3>Installer Spark sur la VM du TP1 et calculer en mémoire</h3>
+      <p>Spark sur le Hadoop du TP1 : exécution sur YARN, RDD, DAG, shuffle et cache.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Comment Spark exécute-t-il un job (DAG, stages, shuffle, cache) et comment le lire dans l'interface 4040 ?</div>
+      <ul>
+        <li>Spark 4.2.0 dans <code>/opt/spark</code>, configuré pour YARN</li>
+        <li>CA par ville en RDD, lu dans l'interface 4040</li>
+        <li>Cache, shuffle et soumission avec <code>spark-submit</code></li>
+      </ul>
+      <div class="tags"><span class="tag">Spark 4.2.0</span><span class="tag">PySpark</span><span class="tag">YARN</span></div>
+      <a class="btn" href="tp5.html">Ouvrir le TP5 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">6</div>
+      <h3>Spark sur le cluster du TP2 : calculer à plusieurs machines</h3>
+      <p>Spark sur les 4 VM du TP2 : trois executors répartis, localité des données, shuffle réseau et reprise après panne.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Comment Spark répartit-il le calcul sur le cluster : localité, shuffle réseau, reprise après panne ?</div>
+      <ul>
+        <li>Spark sur le master, executors sur les trois workers</li>
+        <li>Localité des blocs HDFS et shuffle sur le réseau</li>
+        <li>Panne d'un worker et recalcul par lignage</li>
+      </ul>
+      <div class="tags"><span class="tag">Spark 4.2.0</span><span class="tag">Cluster 4 nœuds</span><span class="tag">YARN</span></div>
+      <a class="btn" href="tp6.html">Ouvrir le TP6 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">7</div>
+      <h3>DataFrames et Spark SQL : refaire le TP5, et comparer</h3>
+      <p>Le fil rouge du TP5 réécrit en DataFrame et en SQL, les plans de Catalyst, Parquet, jointures et fenêtres.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Que fait Catalyst d'une requête DataFrame ou SQL, et que changent Parquet, la jointure et les fenêtres ?</div>
+      <ul>
+        <li>Schéma, DataFrame et vues SQL</li>
+        <li>Plans de Catalyst, AQE, broadcast join</li>
+        <li>Parquet partitionné et comparaison avec les RDD</li>
+      </ul>
+      <div class="tags"><span class="tag">Spark SQL</span><span class="tag">DataFrame</span><span class="tag">Parquet</span></div>
+      <a class="btn" href="tp7.html">Ouvrir le TP7 →</a>
+    </article>
+
+    <article class="card tp-card">
+      <div class="tp-num">8</div>
+      <h3>Le TP7 sur Databricks : Spark sans installation</h3>
+      <p>Databricks Free Edition : Unity Catalog, notebook serverless, Delta Lake, tableau de bord et job planifié.</p>
+      <div class="tp-q"><b>Question d'ingénieur</b>Que garantit Delta Lake, et que perd-on ou gagne-t-on en passant d'un cluster monté à la main à une plateforme managée ?</div>
+      <ul>
+        <li>Volumes et tables dans Unity Catalog</li>
+        <li>Corrections avec MERGE et historique Delta</li>
+        <li>Tableau de bord et traitement nocturne</li>
+      </ul>
+      <div class="tags"><span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">Serverless</span></div>
+      <a class="btn" href="tp8.html">Ouvrir le TP8 →</a>
+    </article>
+  </div>
+
+  <h2 class="section-title">Avant de commencer</h2>
+  <p class="section-sub">Ce qu'il faut prévoir, et le lien entre les TP et les chapitres du cours.</p>
+  <div class="two-col">
+    <div class="card">
+      <h3>Matériel et comptes</h3>
+      <ul>
+        <li><strong>TP1 :</strong> Ubuntu Server 26.04 LTS (machine ou VM), 8 Go de RAM recommandés.</li>
+        <li><strong>TP2 :</strong> VirtualBox et un poste de <strong>16 Go de RAM</strong> recommandés (4 VM de 2 Go).</li>
+        <li><strong>TP3 :</strong> un compte AWS. Les instances sont facturées à l'heure : arrêtez-les après chaque séance.</li>
+        <li><strong>TP4 :</strong> Docker Engine et Docker Compose V2, 8 Go de RAM disponibles pour Docker.</li>
+        <li><strong>TP5 :</strong> la VM du TP1 (8 Go de RAM recommandés) et 5 Go d'espace disque libre.</li>
+        <li><strong>TP6 :</strong> les 4 VM du TP2, passées à <strong>3 Go</strong> chacune (poste de 16 Go de RAM).</li>
+        <li><strong>TP7 :</strong> la VM du TP5 (Spark 4.2.0 sur YARN) et les données du TP5 dans HDFS.</li>
+        <li><strong>TP8 :</strong> un navigateur web et un compte Databricks Free Edition (gratuit, sans carte bancaire).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Lien avec le cours</h3>
+      <table class="map">
+        <thead><tr><th>TP</th><th>Chapitres</th></tr></thead>
+        <tbody>
+          <tr><td>TP1</td><td>Ch. 3 — HDFS et YARN</td></tr>
+          <tr><td>TP2</td><td>Ch. 2 — Architecture distribuée · Ch. 4 — MapReduce</td></tr>
+          <tr><td>TP3</td><td>Ch. 1 et 3 — TCO, sur site ou cloud</td></tr>
+          <tr><td>TP4</td><td>Ch. 5 — Hive et Hue</td></tr>
+          <tr><td>TP5</td><td>Ch. 6 — Spark : RDD, DAG, cache</td></tr>
+          <tr><td>TP6</td><td>Ch. 6 — Spark sur cluster : localité, shuffle, résilience</td></tr>
+          <tr><td>TP7</td><td>Ch. 7 — Spark SQL et DataFrames : Catalyst, Parquet</td></tr>
+          <tr><td>TP8</td><td>Ch. 7 — Databricks, Delta Lake</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="box box-metier fil">
+    <strong>Fil rouge ingénieur :</strong> à chaque TP, ne vous arrêtez pas à « le job a fonctionné ». Expliquez le mécanisme : quel démon a fait quoi, que montrent le plan, l'interface web ou les journaux, et que se passerait-il en cas de panne ?
+  </div>
+</main>
+
+<footer class="site-footer" style="margin-top:32px">ISI — Institut Supérieur d'Informatique · DITI 4 — Diplôme d'Ingénieur en Techniques Informatiques · Big Data &amp; Analyse de données · Année universitaire 2026-2027</footer>
+<script src="assets/tp.js"></script>
+</body>
+</html>
